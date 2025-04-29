@@ -39,6 +39,9 @@ jobs:
       # We turn off 'latest' tag by default.
       TAGS_FLAVOR: |
         latest=false
+      # ECS deployment configuration
+      ECS_CLUSTER: platform-dev
+      ECS_SERVICE: snipeit-service
 
     steps:
       # https://github.com/actions/checkout
@@ -89,3 +92,9 @@ jobs:
           # Use tags / labels provided by 'docker/metadata-action' above
           tags: ${{ steps.meta_build.outputs.tags }}
           labels: ${{ steps.meta_build.outputs.labels }}
+
+      # Restart ECS service with the new image
+      - name: Restart ECS service
+        if: github.event_name != 'pull_request'
+        run: |
+          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --force-new-deployment
