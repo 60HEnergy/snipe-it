@@ -141,16 +141,16 @@ dir="{{ Helper::determineLanguageDirection() }}">
                         </div>
                          <ul class="nav navbar-nav main-menu">
                             <li class="{{ Request::is('inventory') ? 'active' : '' }}">
-                                <a href="#">Inventory</a>
+                                <a href="#">Shelfsense</a>
                             </li>
                             <li class="{{ Request::is('electronic-logs*') ? 'active' : '' }}">
-                                <a href="#">Electronic Logs</a>
+                                <a href="#" class='rocSync-link'>RocSync</a>
                             </li>
                             <li class="{{ Request::is('cmms*') ? 'active' : '' }}">
-                                <a href="#">60hz CMMS</a>
+                                <a href="#" class='maintenance-link' >Maintenance Manager</a>
                             </li>
                             <li class="{{ Request::is('flare-api*') ? 'active' : '' }}">
-                                <a href="#" class='flare-link' >Flare API</a>
+                                <a href="#" class='flare-link' >Flare</a>
                             </li>
                         </ul>
                     </div>
@@ -1040,22 +1040,60 @@ dir="{{ Helper::determineLanguageDirection() }}">
                 observer.observe(document.body, config);
             });
 
-            /* $(document).on('click', '.flare-link', function (e) {
+            $(document).on('click', '.rocSync-link, .maintenance-link', function (e) {
                 e.preventDefault();
-                console.log('Flare API clicked!');
+
+                const getCookie = (name) => {
+                    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+                    return match ? match[2] : null;
+                };
+
+                const config = {
+                    'rocSync-link': {
+                        endpoint: 'asset/auth/token/electronic-logs',
+                        redirectUrl: "{{ config('api.roc_sync_url') }}"
+                    },
+                    'maintenance-link': {
+                        endpoint: 'asset/auth/token/cmms',
+                        redirectUrl: "{{ config('api.shelfsense_url') }}" 
+                    }
+                };
+
+                const classList = $(this).attr('class').split(' ');
+                const matchedClass = classList.find(cls => config[cls]);
+
+                if (!matchedClass) {
+                    console.error('Unknown link class.');
+                    return;
+                }
+
+                const { endpoint, redirectUrl } = config[matchedClass];
+                const token = getCookie('Authorization');
+                const apiUrl = "{{ config('api.base_api_url') }}";
+
+                if (!token) {
+                    console.error('Authorization token not found in cookies.');
+                    return;
+                }
+
                 $.ajax({
-                    url: "https://dev.60hertz.io/api/asset/auth/token/electronic-logs",
-                    type: 'GET',
+                    url: apiUrl + endpoint,
+                    type: 'POST',
                     dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
                     success: function (data) {
-                        console.log('response',data);
-                        // Do something with the response data
+                        if (data.token) {
+                            window.open(redirectUrl + data.token, '_self');
+                        }
                     },
                     error: function (xhr, status, error) {
-                        console.error('Error fetching Flare API:', error);
+                        console.error('Error fetching token:', error);
                     }
                 });
-            }); */
+            });
 
         </script>
 
