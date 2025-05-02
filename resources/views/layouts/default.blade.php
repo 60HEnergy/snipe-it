@@ -139,21 +139,19 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                 </a>
                             @endif
                         </div>
-                         <ul class="nav navbar-nav main-menu">
-                            <li class="{{ Request::is('inventory') ? 'active' : '' }}">
-                                <a href="#">Shelfsense</a>
-                            </li>
-                            <li class="{{ Request::is('electronic-logs*') ? 'active' : '' }}">
-                                <a href="#" class='rocSync-link'>RocSync</a>
-                            </li>
-                            <li class="{{ Request::is('cmms*') ? 'active' : '' }}">
-                                <a href="#" class='maintenance-link' >Maintenance Manager</a>
-                            </li>
-                            <li class="{{ Request::is('flare-api*') ? 'active' : '' }}">
-                                <a href="#" class='flare-link' >Flare</a>
-                            </li>
-                        </ul>
                     </div>
+
+                    <ul class="nav navbar-nav main-menu">
+                        <li class="{{ Request::is('electronic-logs*') ? 'active' : '' }}">
+                            <a href="#" class='rocSync-link'>RocSync</a>
+                        </li>
+                        <li class="{{ Request::is('cmms*') ? 'active' : '' }}">
+                            <a href="#" class='maintenance-link' >Maintenance Manager</a>
+                        </li>
+                        <li class="{{ Request::is('flare-api*') ? 'active' : '' }}">
+                            <a href="#" class='flare-link' >Flare</a>
+                        </li>
+                    </ul>
                     
                     <!-- Navbar Right Menu -->
                     <div class="navbar-custom-menu" style="margin-top: 15px;margin-bottom: 15px;">
@@ -484,14 +482,14 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                 </ul>
                             </li>
                         @endcan
-                        @can('view', \App\Models\License::class)
+                        {{-- @can('view', \App\Models\License::class)
                             <li{!! (Request::is('licenses*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('licenses.index') }}">
                                     <x-icon type="licenses" class="fa-fw"/>
                                     <span>{{ trans('general.licenses') }}</span>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
                         @can('index', \App\Models\Accessory::class)
                             <li{!! (Request::is('accessories*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('accessories.index') }}">
@@ -516,14 +514,14 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                 </a>
                             </li>
                         @endcan
-                        @can('view', \App\Models\PredefinedKit::class)
+                        {{-- @can('view', \App\Models\PredefinedKit::class)
                             <li{!! (Request::is('kits') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('kits.index') }}">
                                     <x-icon type="kits" class="fa-fw" />
                                     <span>{{ trans('general.kits') }}</span>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
 
                         @can('view', \App\Models\User::class)
                             <li{!! (Request::is('users*') ? ' class="active"' : '') !!}>
@@ -634,7 +632,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                             </li>
                         @endcan
 
-                        @can('reports.view')
+                        {{-- @can('reports.view')
                             <li class="treeview{{ (Request::is('reports*') ? ' active' : '') }}">
                                 <a href="#" class="dropdown-toggle">
                                     <x-icon type="reports" class="fa-fw" />
@@ -684,16 +682,16 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                     </li>
                                 </ul>
                             </li>
-                        @endcan
+                        @endcan --}}
 
-                        @can('viewRequestable', \App\Models\Asset::class)
+                        {{-- @can('viewRequestable', \App\Models\Asset::class)
                             <li{!! (Request::is('account/requestable-assets') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('requestable-assets') }}">
                                     <x-icon type="requestable" class="fa-fw" />
                                     <span>{{ trans('general.requestable_items') }}</span>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
 
 
                     </ul>
@@ -760,7 +758,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                 </section>
 
             </div><!-- /.content-wrapper -->
-            <footer class="main-footer hidden-print" style="display:grid;flex-direction:column;">
+            {{-- <footer class="main-footer hidden-print" style="display:grid;flex-direction:column;">
 
                 <div class="1hidden-xs pull-left">
                     <div class="pull-left" >
@@ -798,7 +796,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                         </div>
                     @endif
                 </div>
-            </footer>
+            </footer> --}}
         </div><!-- ./wrapper -->
 
 
@@ -1055,7 +1053,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                     },
                     'maintenance-link': {
                         endpoint: 'asset/auth/token/cmms',
-                        redirectUrl: "{{ config('api.shelfsense_url') }}" 
+                        redirectUrl: "{{ config('api.maintenance_url') }}" 
                     }
                 };
 

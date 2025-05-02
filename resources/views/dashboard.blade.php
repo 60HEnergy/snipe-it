@@ -14,7 +14,6 @@
         background-color: white; 
         border: 1px solid #ddd;
         border-radius: 5px;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
      }
 </style>
 
