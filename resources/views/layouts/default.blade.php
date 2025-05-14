@@ -45,6 +45,51 @@ dir="{{ Helper::determineLanguageDirection() }}">
     {{-- page level css --}}
     @stack('css')
 
+    <style>
+        .services-dropdown {
+            position: relative;
+            display: inline-block;
+            top: 24px;
+            left: 12px;
+            padding: 0px 8px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #e1e3e9;
+        }
+
+        .services-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .services-dropdown:hover  {
+            cursor: pointer;
+        }
+        
+        .dropbtn {
+            padding-bottom: 4px;
+        }
+
+  </style>
+
 
 
     @if (($snipeSettings) && ($snipeSettings->header_color!=''))
@@ -87,8 +132,6 @@ dir="{{ Helper::determineLanguageDirection() }}">
     <script src="{{ url(asset('js/html5shiv.js')) }}" nonce="{{ csrf_token() }}"></script>
     <script src="{{ url(asset('js/respond.js')) }}" nonce="{{ csrf_token() }}"></script>
 
-
-
 </head>
 
 @if (($snipeSettings) && ($snipeSettings->allow_user_skin==1) && Auth::check() && Auth::user()->present()->skin != '')
@@ -109,10 +152,19 @@ dir="{{ Helper::determineLanguageDirection() }}">
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation">
                     <!-- Sidebar toggle button above the compact sidenav -->
-                    <a href="#"  class="sidebar-toggle"  data-toggle="push-menu"
-                       role="button">
-                        
-                    </a>
+                    <a href="#"  class="sidebar-toggle"  data-toggle="push-menu" role="button"></a>
+                    
+                    <div class="services-dropdown navbar-nav">
+                        <div class='dropbtn' > 
+                            <svg xmlns="http://www.w3.org/2000/svg" width='28px' viewBox="0 0 448 512"><path d="M88 64c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8l48 0zM40 32C17.9 32 0 49.9 0 72l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40L40 32zM88 224c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8l48 0zM40 192c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0zm0 192l48 0c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8zM0 392l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM248 64c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8l48 0zM200 32c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0zm0 192l48 0c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8zm-40 8l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zm88 152c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8l48 0zm-48-32c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0zM360 64l48 0c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8zm-40 8l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zm88 152c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8l48 0zm-48-32c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0zm0 192l48 0c4.4 0 8 3.6 8 8l0 48c0 4.4-3.6 8-8 8l-48 0c-4.4 0-8-3.6-8-8l0-48c0-4.4 3.6-8 8-8zm-40 8l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40z"/></svg>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="#" class='rocSync-link'>RocSync</a>
+                            <a href="#" class='maintenance-link' >Maintenance Manager</a>
+                            <a href="#" class='flare-link' >Flare</a>
+                        </div>
+                    </div>
+
                     <div class="nav navbar-nav navbar-left">
                         <div class="left-navblock">
                             @if ($snipeSettings->brand == '3')
@@ -141,7 +193,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                         </div>
                     </div>
 
-                    <ul class="nav navbar-nav main-menu">
+                    {{-- <ul class="nav navbar-nav main-menu">
                         <li class="{{ Request::is('electronic-logs*') ? 'active' : '' }}">
                             <a href="#" class='rocSync-link'>RocSync</a>
                         </li>
@@ -151,7 +203,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                         <li class="{{ Request::is('flare-api*') ? 'active' : '' }}">
                             <a href="#" class='flare-link' >Flare</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                     
                     <!-- Navbar Right Menu -->
                     <div class="navbar-custom-menu" style="margin-top: 15px;margin-bottom: 15px;">
