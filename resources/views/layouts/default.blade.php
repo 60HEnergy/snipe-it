@@ -1095,7 +1095,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
 
                 const getCookie = (name) => {
                     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-                    return match ? match[2] : null;
+                    return match ? decodeURIComponent(match[2]) : null;
                 };
 
                 const config = {
@@ -1131,7 +1131,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                     type: 'POST',
                     dataType: 'json',
                     headers: {
-                        'Authorization': 'Bearer ' + token,
+                        'Authorization': token,
                         'Content-Type': 'application/json'
                     },
                     success: function (data) {
