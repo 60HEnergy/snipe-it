@@ -684,7 +684,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                             </li>
                         @endcan
 
-                        {{-- @can('reports.view')
+                        @can('reports.view')
                             <li class="treeview{{ (Request::is('reports*') ? ' active' : '') }}">
                                 <a href="#" class="dropdown-toggle">
                                     <x-icon type="reports" class="fa-fw" />
@@ -734,7 +734,7 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                     </li>
                                 </ul>
                             </li>
-                        @endcan --}}
+                        @endcan
 
                         {{-- @can('viewRequestable', \App\Models\Asset::class)
                             <li{!! (Request::is('account/requestable-assets') ? ' class="active"' : '') !!}>
